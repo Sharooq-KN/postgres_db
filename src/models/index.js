@@ -14,6 +14,4 @@ const models = {
   USerType: sequelize.import('./userType'),
 };
 
-// exports.sequelize = sequelize;
-
 module.exports = { models, sequelize };
