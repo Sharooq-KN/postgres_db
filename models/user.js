@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.UserTypeID = this.belongsTo(models.UserType, {
-        foreignKey: "Type",
+        foreignKey: "ID",
         constraints: false,
       });
     }
   }
   User.init(
     {
-      id: {
+      ID: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
@@ -36,9 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         unique: true,
       },
+      IsEmailVerified: {
+        allowNull: true,
+        type: DataTypes.BOOLEAN,
+      },
       Password: {
         allowNull: false,
-        type: DataTypes.CHAR(255),
+        type: DataTypes.STRING(255),
       },
       DOB: {
         type: DataTypes.DATE,
@@ -54,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       PhotoUrl: {
         allowNull: false,
-        type: DataTypes.CHAR(255),
+        type: DataTypes.STRING(255),
       },
       IsActive: {
         allowNull: true,
@@ -72,16 +76,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "UserType",
-          key: "id",
+          model: "User",
+          key: "ID",
         },
       },
       UpdatedBy: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: "UserType",
-          key: "id",
+          model: "User",
+          key: "ID",
         },
       },
       UserTypeID: {
@@ -89,8 +93,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         references: {
           model: "UserType",
-          key: "id",
+          key: "ID",
         },
+      },
+      CreatedAt: {
+        type: DataTypes.DATE,
+        field: "CreatedAt",
+        allowNull: false,
+      },
+      UpdatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        field: "UpdatedAt",
       },
     },
     {

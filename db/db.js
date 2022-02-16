@@ -10,6 +10,8 @@ const sequelize = new Sequelize({
   host: "localhost",
   define: {
     freezeTableName: true,
+    createdAt: "CreatedAt",
+    updatedAt: "UpdatedAt",
   },
 });
 

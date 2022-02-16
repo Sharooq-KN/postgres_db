@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("UserType", {
-      id: {
+      ID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -10,11 +10,16 @@ module.exports = {
       },
       Type: {
         defaultValue: "Customer",
-        type: Sequelize.ENUM("Staff(admin & kitchen)", "Customer", "Driver"),
+        type: Sequelize.ENUM(
+          "Staff(kitchen)",
+          "Staff(admin)",
+          "Customer",
+          "Driver"
+        ),
       },
     });
     await queryInterface.createTable("User", {
-      id: {
+      ID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -33,9 +38,13 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
+      IsEmailVerified: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN,
+      },
       Password: {
         allowNull: false,
-        type: Sequelize.CHAR,
+        type: Sequelize.STRING,
       },
       DOB: {
         type: Sequelize.DATE,
@@ -43,7 +52,7 @@ module.exports = {
       },
       Mobile: {
         allowNull: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       IsMobileVerified: {
         allowNull: true,
@@ -51,7 +60,7 @@ module.exports = {
       },
       PhotoUrl: {
         allowNull: false,
-        type: Sequelize.CHAR,
+        type: Sequelize.STRING,
       },
       IsActive: {
         allowNull: true,
@@ -69,24 +78,34 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "UserType",
-          key: "id",
+          model: "User",
+          key: "ID",
         },
       },
       UpdatedBy: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: "UserType",
-          key: "id",
+          model: "User",
+          key: "ID",
         },
+      },
+      CreatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+      },
+      UpdatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
       },
       UserTypeID: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "UserType",
-          key: "id",
+          key: "ID",
           allowNull: false,
         },
       },

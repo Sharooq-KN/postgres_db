@@ -13,14 +13,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserType.init(
     {
-      id: {
+      ID: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
       Type: {
         defaultValue: "Customer",
-        type: DataTypes.ENUM("Staff(admin & kitchen)", "Customer", "Driver"),
+        type: DataTypes.ENUM(
+          "Staff(kitchen)",
+          "Staff(admin)",
+          "Customer",
+          "Driver"
+        ),
       },
     },
     {
